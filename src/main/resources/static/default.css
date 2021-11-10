@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.hh{
+	position: relative;
+	padding-top:0px;
+	margin-top:0px;
+	background: #59b9c6;
+	color: white;
+}
+table {
+	font-size: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+body {
+	color: #000;
+	text-shadow: 1px 1px 0 #FFF, -1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px -1px
+		0 #FFF, 0px 1px 0 #FFF, 0 -1px 0 #FFF, -1px 0 0 #FFF, 1px 0 0 #FFF;
+	font-size: 45px;
+	background-image: url("img/backpicture.jpg");
+	background-size: 100%;
+	background-attachment:scroll;
+	color: #00947a;
+	text-align: center;
+	background-size: 100%;
+}
+
+.btn-slip {
+	display: inline-block;
+	padding: 12px 24px;
+	font-weight: bold;
+	border-radius: 4px;
+	background-color: #88bfbf;
+	box-shadow: 0px 2px 2px 1px #dcdcdc;
+	border-bottom: solid 5px #009e9f;
+	text-decoration: none;
+	color: #fff;
+}
+
+.btn-slip:active {
+	box-shadow: none;
+	position: relative;
+	border-bottom: none;
+	top: 7px;
+}
+
+select, option {
+	border: black 2px inset;
+	font-size: 30px;
+}

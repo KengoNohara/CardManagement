@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="名刺の+${title}+画面"></title>
+	<link rel="stylesheet" type="text/css" th:href="@{/default.css}" />
+</head>
+
+<body>
+	<h1 class="hh" th:text="名刺の+${title}+画面"></h1>
+	<form th:action="@{/tosearch}" method="get">
+		<p>
+			名前検索
+			
+			<span>
+			<input type="radio" name="value" value="名前" th:checked="${value}=='名前'">名前
+			<input type="radio" name="value" value="社名"　th:checked="${value}=='社名'">社名
+			<input type="radio" name="value" value="役職"　th:checked="${value}=='役職'">役職
+			<input type="radio" name="value" value="区分"　th:checked="${value}=='区分'">区分
+			</span>
+			
+			
+			<input type="text" th:value="${keys}" name="key">
+
+			<input class="btn-slip" type="submit" value="検索" />
+		</p>
+	</form>
+	<form th:if="${hiddenrock}=='pass'" th:action="@{/tosort}">
+		<p>
+			<select name="target">
+				<option th:each="item : ${target}" th:value="${item.name}" th:text="${item.name}"
+					th:selected="${item.name==selectedTarget}">
+				</option>
+			</select>
+			<select name="sort">
+				<option th:each="item : ${sort}" th:value="${item.name}" th:text="${item.name}"
+					th:selected="${item.name==selectedSort}">
+				</option>
+			</select>
+			<input class="btn-slip" type="submit" value="並び替え" />
+		</p>
+	</form>
+	<table border="1" 　th:if="${hiddenrock}=='pass'">
+		<tr>
+			<th>日付</th>
+			<th>社名</th>
+			<th>名前</th>
+			<th>役職</th>
+			<th>区分</th>
+			<th>更新</th>
+			<th>削除</th>
+			<th>詳細</th>
+
+		</tr>
+		<tr th:each="e : ${list}" name="test">
+			<td th:text="${e.date}"></td>
+			<td th:text="${e.factory}"></td>
+			<td th:text="${e.name}"></td>
+			<td th:text="${e.state}"></td>
+			<td th:text="${e.relation}"></td>
+
+			<td><a th:href="@{/update/{d}(d=${e.id})}">更新</a></td>
+			<td><a th:href="@{/delete/{d}(d=${e.id})}">削除</a></td>
+			<td><a th:href="@{/detail/{d}(d=${e.id})}">詳細</a></td>
+		</tr>
+	</table>
+	<p>
+		<a class="btn-slip" th:href="@{/}">トップへ戻る</a>
+</body>
+
+</html>

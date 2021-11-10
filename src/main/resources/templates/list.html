@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title th:text="名刺の+${title}+画面"></title>
+<link rel="stylesheet" type="text/css" th:href="@{/default.css}" />
+</head>
+
+<body>
+	<h1 class="hh" th:text="名刺の+${title}+画面"></h1>
+	<form th:action="@{/sort}">
+		<p>
+			<select name="target">
+				<option th:each="item : ${target}" th:value="${item.name}"
+					th:text="${item.name}" th:selected="${item.name==selectedTarget}">
+				</option>
+			</select> <select name="sort">
+				<option th:each="item : ${sort}" th:value="${item.name}"
+					th:text="${item.name}" th:selected="${item.name==selectedSort}">
+				</option>
+			</select> <input class="btn-slip" type="submit" value="並び替え" />
+		</p>
+	</form>
+	<form th:action="@{/bulkdelete}" th:object="${form}" method="post">
+		<input type="submit" value="一括削除">
+		<table border="1" th:if="${list.size()>0}">
+			<tr>
+				<th>削除</th>
+				<th>日付</th>
+				<th>社名</th>
+				<th>名前</th>
+				<th>役職</th>
+				<th>区分</th>
+				<th>更新</th>
+				<th>削除</th>
+				<th>詳細</th>
+			</tr>
+			<tr th:each="e : ${list}">
+				<td><input type="checkbox" th:field="*{imputMultiCheck}"
+					th:value="${e.id}" /></td>
+				<td th:text="${e.date}"></td>
+				<td th:text="${e.factory}"></td>
+				<td th:text="${e.name}"></td>
+				<td th:text="${e.state}"></td>
+				<td th:text="${e.relation}"></td>
+
+				<td><a th:href="@{/update/{d}(d=${e.id})}">更新</a></td>
+				<td><a th:href="@{/delete/{d}(d=${e.id})}">削除</a></td>
+				<td><a th:href="@{/detail/{d}(d=${e.id})}">詳細</a></td>
+			</tr>
+		</table>
+	</form>
+	<p>
+		<a class="btn-slip" th:href="@{/}">トップへ戻る</a> <a class="btn-slip"
+			th:href="@{/write}">名刺の追加</a> <a class="btn-slip"
+			th:href="@{/search}">名刺の検索</a>
+	</p>
+</body>
+
+</html>

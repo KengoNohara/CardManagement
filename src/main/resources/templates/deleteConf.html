@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>一括削除確認画面</title>
+<link rel="stylesheet" type="text/css" th:href="@{/default.css}" />
+</head>
+<body>
+	<h1>削除確認画面</h1>
+	<p>下記のすべてのレコードを削除しますか？</p>
+	<form th:action="@{/bulkremove}" th:object="${form}" method="post">
+		<table border="1">
+			<tr>
+			<th>日付</th>
+			<th>社名</th>
+			<th>名前</th>
+			<th>役職</th>
+			<th>区分</th>
+		</tr>
+		
+		<tr th:each="e: ${list}">
+		<td th:text="${e.date}"></td>
+			<td th:text="${e.factory}"></td>
+			<td th:text="${e.name}"></td>
+			<td th:text="${e.state}"></td>
+			<td th:text="${e.relation}"></td>
+		</tr>
+		</table>
+		<input type="hidden" th:field="*{imputMultiCheck}" />
+		<input type="submit" value="削除実行">
+	</form>
+	<br>
+	<a class="btn-slip" th:href="@{/list}">一覧へ戻る</a>
+</body>
+</html>
