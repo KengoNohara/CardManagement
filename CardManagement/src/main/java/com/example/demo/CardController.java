@@ -38,14 +38,15 @@ public class CardController {
 
 	@Autowired
 	CardService service;
+	
+	List<?> countlist;
 
 	@RequestMapping("/")
 	public ModelAndView index(ModelAndView mv) {
-		mv.addObject("list", service.getFindAll());
+		mv.addObject("list", service.findAllByOrderByFactory());
 		mv.addObject("title", " 社別名刺一覧画面");
+		mv.addObject("count",service.CountFactoryClass());
 		setPulldown(mv);
-//		mv.addObject("map",service.FindFactory()); //_この時点でダメ見たい
-//		Map型のvalueが2つの値が入っているのが原因のよう
 		mv.setViewName("index");
 		return mv;
 	}
@@ -99,7 +100,7 @@ public class CardController {
 
 	@RequestMapping("/list")
 	public ModelAndView list(ModelAndView mv) {
-		mv.addObject("list", service.getFindAll());
+		mv.addObject("list", service.findAllByOrderById());
 		setPulldown(mv);
 		mv.addObject("title", "一覧");
 		mv.addObject("form", new CardEntity());

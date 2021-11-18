@@ -9,23 +9,18 @@
 </head>
 <body>
 	<h1 class="hh">社別名刺一覧画面</h1>
-	<!-- <p th:text="${map}"></p> -->
-	<table border="1" th:if="${list.size()>0}">
+	<table border="1" th:if="${count.size()>0}">
 		<tr>
 			<th>社名</th>
 			<th>名前</th>
 		</tr>
-		<!--細かい調整はコントローラーでやる-->
-		<tr th:each="e : ${list}">
-			<td th:text="${e.factory}"></td> <!--rowspan=${変数名}"何個セルを結合するかの値_コントローラーで決める"-->
-			<!--最初のデータのみFactoryの値を受け渡すほうが良いかな_コントローラーで調整する-->
-			<td th:text="${e.name}"></td>
+		<tr th:each="e : ${count}" >
+		<td th:text="${e.factory}">
+				<td th:text="${e.name}"></td>
 		</tr>
 	</table>
 	<a class="btn-slip" th:href="@{/write}">名刺の追加</a>
 	<a class="btn-slip" th:href="@{/search}">名刺の検索</a>
 	<a class="btn-slip" th:href="@{/list}">名刺の一覧</a>
-
-
 </body>
 </html>

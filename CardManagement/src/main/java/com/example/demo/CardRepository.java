@@ -129,14 +129,19 @@ public interface CardRepository extends JpaRepository<CardEntity, Integer> {
 	@Query("select u from CardEntity u where u.relation like %:key% order by u.date desc")
 	public List<CardEntity> RelationSortDateDesc(@Param(value="key")String key);
 	
-	//------------トップページ用メソッド
+	//ここに新しく作成する-------------------------カウントのみあればいける
+	//これらの配列をList<CountFactoryClass>に入れてからHTMLに挿入する
 	
-	@Query("select u.factory from CardEntity u order by u.factory asc")
-	public String[] FindAllFactory();
+	@Query("select count(u.factory) from CardEntity u group by u.factory order by u.factory asc")
+	public Integer[] FindFactoryAndCount();
 	
-	//------------トップページ用プロトタイプ
+	//上のやつを使おうね
 	
-	@Query("select u.factory, count(u.factory) from CardEntity u group by u.factory order by u.factory asc")
-	public List<CardEntity> FindFactoryandSum();//値を返すメソッドは完成している。戻り値のことを調べる。とりまこれでOK
-	//会社名とグループの数の判定結果が("社名",x)みたいな形でデータが返ってくる
+	@Query("select factory from CardEntity u group by u.factory order by u.factory asc")
+	public String[] FindFactory();
+	
+	@Query("select name from CardEntity u order by u.factory asc")
+	public String[] FindName();
+	
+	//全まとめメソッド
 }

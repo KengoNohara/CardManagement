@@ -1,17 +1,14 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CardService {
-	
-	
 	@Autowired
 	CardRepository repository;
 
@@ -21,8 +18,13 @@ public class CardService {
 	String Relation = "区分";
 
 	// findAllメソッド
-	public List<CardEntity> getFindAll() {
-		List<CardEntity> list = repository.findAll();
+	public List<CardEntity> findAllByOrderByFactory() {
+		List<CardEntity> list = repository.findAllByOrderByFactory();
+		return (list);
+	}
+
+	public List<CardEntity> findAllByOrderById() {
+		List<CardEntity> list = repository.findAllByOrderById();
 		return (list);
 	}
 
@@ -159,19 +161,23 @@ public class CardService {
 		repository.saveAndFlush(entity);
 	}
 
-	// トップページ用のメソッドです
-
-//	public Map<String, String> FindFactory() {
-//		Map<String, String> map = repository.FindFactoryandSum();
-//		return (map);
-//	}
-
-	// ブラウザ見てから作り変える
-	public Map<String, List<CardEntity>> FindFactory() {
-		List<CardEntity> list = repository.FindFactoryandSum();
-		Map<String, List<CardEntity>> lists =
-				list.stream().collect(Collectors.groupingBy(CardEntity::getFactory));
-		return(lists);
+	public List<CountFactoryClass> CountFactoryClass() {
+		List<CountFactoryClass> counts = new ArrayList<>();
+		Integer[] count = repository.FindFactoryAndCount();
+		String[] factory = repository.FindFactory();
+		String[] name = repository.FindName();
+		int countup2 = 0;
+		for (int x = 0; x < factory.length; x++) {// ここは確定＿変えるのは↓の記述
+			counts.add(new CountFactoryClass(factory[x], count[x], name[countup2]));// ここも確定
+			countup2++;
+			int countup = count[x];
+			if (countup >= 2) {
+				for (; countup >= 2; countup--) {
+					counts.add(new CountFactoryClass(name[countup2]));
+					countup2++;
+				}
+			}
+		}
+		return (counts);
 	}
-	//作ったはいいけど、社名だけで件数が分からない_valueに社名と件数が入っている
 }
