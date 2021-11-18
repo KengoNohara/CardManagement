@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="名刺の+${title}+画面"></title>
+<link rel="stylesheet" type="text/css" th:href="@{/add.css}" />
+<style type="text/css">
+body {
+	font-family: monospace;
+}
+
+textarea {
+	vertical-align: middle;
+}
+
+span.err {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<h1 class="hh" th:text="名刺の+${title}+画面"></h1>
+	<form class="id" th:action="@{/insert}" th:object="${form}"
+		enctype="multipart/form-data" method="post">
+		<p>
+			社名<input type="text" placeholder="入力必須です" th:field="*{factory}" /> <span
+				th:if="${#fields.hasErrors('factory')}" th:errors="*{factory}"
+				class="err"></span>
+		</p>
+
+		<p>
+			画像<input type="file" th:field="*{file}" />
+		</p>
+		<p>
+			日付<input type="date" th:field="*{date}" />
+		</p>
+		<p>
+			名前<input type="text" placeholder="入力必須です" th:field="*{name}" /> <span
+				th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="err"></span>
+		</p>
+		<p>
+			役職<input type="text" placeholder="入力必須です" th:field="*{state}" /> <span
+				th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+				class="err"></span>
+		</p>
+		<p>
+			区分<input type="text" placeholder="入力必須です" th:field="*{relation}" /> <span
+				th:if="${#fields.hasErrors('relation')}" th:errors="*{relation}"
+				class="err"></span>
+		</p>
+		<p>
+			特記事項<br>
+			<textarea placeholder="空白可" th:field="*{notes}" cols="20" rows="5">なし</textarea>
+		</p>
+		<input th:if="${title}=='更新'" type="hidden" th:field="*{id}" /> <input class="btn-slip"
+			type="submit" th:value="${title}+する" />
+	</form>
+	<p>
+		<a class="btn-slip" th:if="${title=='追加'}" th:href="@{/}">トップへ戻る</a>
+	</p>
+	<p>
+		<a class="btn-slip" th:if="${title=='更新'}" th:href="@{/list}">戻る</a>
+	</p>
+</body>
+</html>

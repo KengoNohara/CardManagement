@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="名刺の+${title}+画面"></title>
+<link rel="stylesheet" type="text/css" th:href="@{/detail.css}" />
+</head>
+<body>
+	<h1 class="hh" th:text="名刺の+${title}+画面"></h1>
+	<div th:object="${form}">
+		<p th:if="${title}=='削除'">下記のデータを削除しますか？</p>
+		<p th:text="*{'日付 :'+date}"></p>
+		<p class="border"><img th:src="@{'/img/'+*{path}}"
+			alt onerror="this.onerror=null; this.src='';" /></p>
+		<p th:text="*{'社名 :'+factory}"></p>
+		<p th:text="*{'名前 :'+name}"></p>
+		<p th:text="*{'役職 :'+state}"></p>
+		<p th:text="*{'区分 :'+relation}"></p>
+		<p th:text="*{'特記事項 :'+notes}"></p>
+
+		<form th:if="${title}=='削除'" th:action="@{/delete}">
+			<input type="hidden" th:field="${form.id}"> <input class="btn-slip"
+				type="submit" value="削除する">
+		</form>
+	</div>
+	<p>
+		<a class="btn-slip" th:href="@{/list}">戻る</a>
+	</p>
+</body>
+</html>
