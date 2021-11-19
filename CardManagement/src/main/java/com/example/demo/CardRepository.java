@@ -135,7 +135,7 @@ public interface CardRepository extends JpaRepository<CardEntity, Integer> {
 	@Query("select count(u.factory) from CardEntity u group by u.factory order by u.factory asc")
 	public Integer[] FindFactoryAndCount();
 	
-	//上のやつを使おうね
+	//count＆groupで社名でまとめているため、@Query文一つだけでは取得できず、記述が増えてしまった
 	
 	@Query("select factory from CardEntity u group by u.factory order by u.factory asc")
 	public String[] FindFactory();
@@ -152,5 +152,5 @@ public interface CardRepository extends JpaRepository<CardEntity, Integer> {
 	@Query("select id from CardEntity u order by u.factory asc")
 	public Integer[] FindId();
 	
-	//全まとめメソッド
+	//---↑トップページで、連続する社名は一つだけにするメソッド_最後の課題で使用
 }

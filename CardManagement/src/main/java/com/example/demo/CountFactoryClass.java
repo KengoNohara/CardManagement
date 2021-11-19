@@ -1,7 +1,7 @@
 package com.example.demo;
 
 public class CountFactoryClass {
-	// List型で格納するフィールド
+	// List型<>で格納するためのフィールド
 	String factory;
 	Integer count;
 	String name;
@@ -10,39 +10,25 @@ public class CountFactoryClass {
 	Integer id;
 
 	// フィールドは上記のみ
-	public CountFactoryClass(String factory, Integer count, String name, String relation, String state,Integer id) {
+	public CountFactoryClass(String factory, Integer count, String name, String relation, String state, Integer id) {
 		this.factory = factory;
 		this.count = count;
 		this.name = name;
 		this.relation = relation;
 		this.state = state;
-		this.id=id;
-		// 上記はコンストラクタ
+		this.id = id;
+		// ↑重複しないor最初に出てくる重複した社名テーブル取得をする際に使うコンストラクタ
 	}
 
-	public CountFactoryClass(String factory, String name) {
-		this.factory = factory;
-		this.name = name;
-		// 上記はコンストラクタ
-	}
-
-	public CountFactoryClass(String factory, Integer count) {
-		this.factory = factory;
-		this.count = count;
-		// 上記はコンストラクタ
-	}
-
-	public CountFactoryClass(String name, String relation, String state,Integer id) {
+	public CountFactoryClass(String name, String relation, String state, Integer id) {
 		this.name = name;
 		this.relation = relation;
-		this.state=state;
-		this.id=id;
+		this.state = state;
+		this.id = id;
+		// ↑社名が重複していた場合のコンストラクタ
 	}
 
-	// 上記はコンストラクタ
-	public CountFactoryClass(String name) {
-		this.name = name;
-	}
+	// -----以下GetterとSetter
 
 	public String getFactory() {
 		return factory;

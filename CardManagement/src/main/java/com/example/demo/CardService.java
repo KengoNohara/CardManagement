@@ -1,5 +1,9 @@
 package com.example.demo;
 
+
+//トップページで、連続する社名は一つだけにするメソッドは一番下に記載してあります。
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -161,19 +165,30 @@ public class CardService {
 		repository.saveAndFlush(entity);
 	}
 
+	//---トップページで、連続する社名は一つだけにするメソッド_最後の課題で使用
+	
 	public List<CountFactoryClass> CountFactoryClass() {
 		List<CountFactoryClass> counts = new ArrayList<>();
+		
+		//SQLでcount＆groupの社名でグループ化しているため一回で代入できない。
+		//そのため社名順でSQLで配列として一つずつ取得し、サービスでそれぞれ一つずれ代入している
+		
 		Integer[] count = repository.FindFactoryAndCount();
 		String[] factory = repository.FindFactory();
 		String[] name = repository.FindName();
 		String[] relation=repository.FindRelation();
 		String[] state=repository.FindState();
 		Integer[] id=repository.FindId();
+		
 		int countup2 = 0;
-		for (int x = 0; x < factory.length; x++) {// ここは確定＿変えるのは↓の記述
+		for (int x = 0; x < factory.length; x++) {
 			counts.add(new CountFactoryClass(factory[x], count[x], name[countup2],relation[countup2],state[countup2],id[countup2]));// ここを増やす
 			countup2++;
 			int countup = count[x];
+			
+			//下のIf文でcount[x]で値(重複社名の件数)が2個以上＝＝社名が重複のばあい、社名に値を代入しないコンストラクタを使い
+			//オブジェクト作成することで、HTML上の社名のカラムを空欄で表示させ、重複させないようにする。
+			
 			if (countup >= 2) {
 				for (; countup >= 2; countup--) {
 					counts.add(new CountFactoryClass(name[countup2],relation[countup2],state[countup2],id[countup2]));//個々も増やす
