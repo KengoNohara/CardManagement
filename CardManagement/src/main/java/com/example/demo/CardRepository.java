@@ -143,5 +143,14 @@ public interface CardRepository extends JpaRepository<CardEntity, Integer> {
 	@Query("select name from CardEntity u order by u.factory asc")
 	public String[] FindName();
 	
+	@Query("select relation from CardEntity u order by u.factory asc")
+	public String[] FindRelation();
+	
+	@Query("select state from CardEntity u order by u.factory asc")
+	public String[] FindState();
+	
+	@Query("select id from CardEntity u order by u.factory asc")
+	public Integer[] FindId();
+	
 	//全まとめメソッド
 }

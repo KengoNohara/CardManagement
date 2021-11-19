@@ -166,14 +166,17 @@ public class CardService {
 		Integer[] count = repository.FindFactoryAndCount();
 		String[] factory = repository.FindFactory();
 		String[] name = repository.FindName();
+		String[] relation=repository.FindRelation();
+		String[] state=repository.FindState();
+		Integer[] id=repository.FindId();
 		int countup2 = 0;
 		for (int x = 0; x < factory.length; x++) {// ここは確定＿変えるのは↓の記述
-			counts.add(new CountFactoryClass(factory[x], count[x], name[countup2]));// ここも確定
+			counts.add(new CountFactoryClass(factory[x], count[x], name[countup2],relation[countup2],state[countup2],id[countup2]));// ここを増やす
 			countup2++;
 			int countup = count[x];
 			if (countup >= 2) {
 				for (; countup >= 2; countup--) {
-					counts.add(new CountFactoryClass(name[countup2]));
+					counts.add(new CountFactoryClass(name[countup2],relation[countup2],state[countup2],id[countup2]));//個々も増やす
 					countup2++;
 				}
 			}

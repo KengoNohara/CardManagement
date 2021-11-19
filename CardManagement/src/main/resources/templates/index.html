@@ -13,10 +13,20 @@
 		<tr>
 			<th>社名</th>
 			<th>名前</th>
+			<th>役職</th>
+			<th>区分</th>
+			<th>更新</th>
+			<th>削除</th>
+			<th>詳細</th>
 		</tr>
-		<tr th:each="e : ${count}" >
-		<td th:text="${e.factory}">
-				<td th:text="${e.name}"></td>
+		<tr th:each="e : ${count}">
+			<td th:text="${e.factory}">
+			<td th:text="${e.name}"></td>
+			<td th:text="${e.state}"></td>
+			<td th:text="${e.relation}"></td>
+			<td><a th:href="@{/update/{d}(d=${e.id})}">更新</a></td>
+			<td><a th:href="@{/delete/{d}(d=${e.id})}">削除</a></td>
+			<td><a th:href="@{/detail/{d}(d=${e.id})}">詳細</a></td>
 		</tr>
 	</table>
 	<a class="btn-slip" th:href="@{/write}">名刺の追加</a>
